@@ -1,0 +1,14 @@
+# Personal Knowledge Base
+
+This is a sample document for testing the personal knowledge base application.
+
+## About LlamaIndex
+
+LlamaIndex is a data framework for building LLM applications. It provides tools for:
+- Ingesting data from various sources
+- Creating indexes for efficient retrieval
+- Querying documents with natural language
+
+## RAG (Retrieval Augmented Generation)
+
+RAG combines retrieval of relevant documents with generative AI to provide accurate, context-aware responses.

@@ -1,11 +1,15 @@
+import os
 from app.index.build_index import build_index
 from app.index.query_engine import get_query_engine
+from app.config import STORAGE_DIR
 
 if __name__ == "__main__":
-    # Step 1: Build index (run once)
-    # build_index()
+    # Build index if storage doesn't exist
+    docstore_path = os.path.join(STORAGE_DIR, "docstore.json")
+    if not os.path.exists(docstore_path):
+        print("No index found. Building index...")
+        build_index()
 
-    # Step 2: Query
     query_engine = get_query_engine()
 
     while True:
