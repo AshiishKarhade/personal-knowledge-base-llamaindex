@@ -1,21 +1,31 @@
 import os
-from app.index.build_index import build_index
-from app.index.query_engine import get_query_engine
-from app.config import STORAGE_DIR
+
+from app.index.build_index import build_indices
+from app.index.query_engine import (
+    get_vector_query_engine,
+    get_summary_query_engine
+)
+from app.config import VECTOR_INDEX_DIR, SUMMARY_INDEX_DIR
 
 if __name__ == "__main__":
-    # Build index if storage doesn't exist
-    docstore_path = os.path.join(STORAGE_DIR, "docstore.json")
-    if not os.path.exists(docstore_path):
-        print("No index found. Building index...")
-        build_index()
+    # Auto-build if indices don't exist
+    if not os.path.exists(VECTOR_INDEX_DIR) or not os.path.exists(SUMMARY_INDEX_DIR):
+        print("No indices found. Building...")
+        build_indices()
 
-    query_engine = get_query_engine()
+    vector_engine = get_vector_query_engine()
+    summary_engine = get_summary_query_engine()
 
     while True:
         q = input("\nAsk: ")
         if q.lower() == "exit":
             break
 
-        response = query_engine.query(q)
+        mode = input("Mode (v=vector, s=summary): ")
+
+        if mode == "s":
+            response = summary_engine.query(q)
+        else:
+            response = vector_engine.query(q)
+
         print("\nAnswer:", response)

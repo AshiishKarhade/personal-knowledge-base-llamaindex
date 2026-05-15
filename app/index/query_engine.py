@@ -1,16 +1,25 @@
 from llama_index.core import StorageContext, load_index_from_storage
 from app.llm.ollama_llm import get_llm
 from app.embeddings.hf_embeddings import get_embedding
-from app.config import STORAGE_DIR
+from app.config import VECTOR_INDEX_DIR, SUMMARY_INDEX_DIR
 
-def get_query_engine():
+def get_vector_query_engine():
     storage_context = StorageContext.from_defaults(
-        persist_dir=STORAGE_DIR
+        persist_dir=VECTOR_INDEX_DIR
     )
-
     index = load_index_from_storage(
         storage_context,
         embed_model=get_embedding()
     )
+    return index.as_query_engine(llm=get_llm())
 
+
+def get_summary_query_engine():
+    storage_context = StorageContext.from_defaults(
+        persist_dir=SUMMARY_INDEX_DIR
+    )
+    index = load_index_from_storage(
+        storage_context,
+        embed_model=get_embedding()
+    )
     return index.as_query_engine(llm=get_llm())

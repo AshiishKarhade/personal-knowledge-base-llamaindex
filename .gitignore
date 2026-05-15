@@ -17,6 +17,10 @@ env/
 # LlamaIndex storage (generated from data/)
 storage/
 
+# Node
+frontend/node_modules/
+frontend/dist/
+
 # OS
 .DS_Store
 Thumbs.db
@@ -26,3 +30,6 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Logs
+*.log
